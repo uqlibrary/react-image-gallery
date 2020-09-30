@@ -1266,6 +1266,7 @@ export default class ImageGallery extends React.Component {
   }
 
   renderItem(item) {
+    console.log(item);
     const { isFullscreen } = this.state;
     const { onImageError } = this.props;
     const handleImageError = onImageError || this.handleImageError;
