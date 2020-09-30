@@ -1299,6 +1299,7 @@ export default class ImageGallery extends React.Component {
           ) : (
             <img
               className="image-gallery-image"
+              aria-hidden
               src={itemSrc}
               alt={item.originalAlt}
               srcSet={item.srcSet}
