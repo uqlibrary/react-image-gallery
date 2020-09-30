@@ -62,7 +62,7 @@ gulp.task('demo-src', async () => {
     .bundle()
     .pipe(source('demo.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./demo/'));
 
   gulp.src(['./styles/css/image-gallery.css', './example/app.css'])
