@@ -643,7 +643,7 @@ export default class ImageGallery extends React.Component {
           onMouseLeave={onMouseLeave}
           role="button"
         >
-          {showItem ? handleRenderItem(item) : <div style={{ height: '100%' }} />}
+          {showItem ? handleRenderItem(item, index) : <div style={{ height: '100%' }} />}
         </div>
       );
 
@@ -1265,15 +1265,15 @@ export default class ImageGallery extends React.Component {
     }
   }
 
-  renderItem(item) {
-    console.log(item);
+  renderItem(item, index) {
+    console.log(item, index);
     const { isFullscreen } = this.state;
     const { onImageError } = this.props;
     const handleImageError = onImageError || this.handleImageError;
     const itemSrc = isFullscreen ? (item.fullscreen || item.original) : item.original;
 
     return (
-      <div className="spotlights-gallery" data-testid="spotlights-gallery">
+      <div className="spotlights-gallery" data-testid="spotlights-gallery" data-index={index}>
         {
           item.imageSet ? (
             <picture
