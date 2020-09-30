@@ -626,7 +626,7 @@ export default class ImageGallery extends React.Component {
 
       const slide = (
         <div
-          aria-label={`Slide ${index + 1}`}
+          // aria-label={`Slide ${index + 1}`}
           aria-hidden={currentIndex !== index ? 'true' : 'false'}
           // eslint-disable-next-line react/no-array-index-key
           key={`slide-${item.original}-${index}`}
@@ -641,7 +641,7 @@ export default class ImageGallery extends React.Component {
           onMouseOver={onMouseOver}
           onFocus={onMouseOver}
           onMouseLeave={onMouseLeave}
-          role="button"
+          // role="button"
         >
           {showItem ? handleRenderItem(item, index) : <div style={{ height: '100%' }} />}
         </div>
