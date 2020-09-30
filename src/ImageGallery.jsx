@@ -1273,7 +1273,7 @@ export default class ImageGallery extends React.Component {
     const itemSrc = isFullscreen ? (item.fullscreen || item.original) : item.original;
 
     return (
-      <div className="spotlights-gallery" data-testid="spotlights-gallery">
+      <div className="spotlights-gallery" data-testid="spotlights-gallery" aria-label="Library news and events slideshow">
         {
           item.imageSet ? (
             <picture
