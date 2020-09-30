@@ -624,7 +624,8 @@ export default class ImageGallery extends React.Component {
 
       const slide = (
         <div
-          aria-label={`Go to Slide ${index + 1}`}
+          aria-label={`Slide ${index + 1}`}
+          aria-hidden={currentIndex !== index ? 'true' : 'false'}
           key={`slide-${item.original}-${index}`}
           tabIndex="-1"
           className={`image-gallery-slide ${alignment} ${originalClass}`}
@@ -735,7 +736,6 @@ export default class ImageGallery extends React.Component {
     const isFirstSlide = index === 0;
     return isLastSlide || isFirstSlide;
   }
-
 
   slideIsTransitioning(index) {
     /*
@@ -1268,7 +1268,7 @@ export default class ImageGallery extends React.Component {
     const itemSrc = isFullscreen ? (item.fullscreen || item.original) : item.original;
 
     return (
-      <div>
+      <div className="testing" >
         {
           item.imageSet ? (
             <picture
