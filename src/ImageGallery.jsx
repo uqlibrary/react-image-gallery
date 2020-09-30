@@ -9,7 +9,6 @@ import {
   arrayOf,
   bool,
   func,
-  node,
   number,
   oneOf,
   shape,
@@ -37,6 +36,7 @@ function isEnterOrSpaceKey(event) {
 }
 
 export default class ImageGallery extends React.Component {
+  // eslint-disable-next-line react/static-property-placement
   static propTypes = {
     flickThreshold: number,
     items: arrayOf(shape({
@@ -110,6 +110,7 @@ export default class ImageGallery extends React.Component {
     isRTL: bool,
   };
 
+  // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     onErrorImageURL: '',
     additionalClass: '',
@@ -298,6 +299,7 @@ export default class ImageGallery extends React.Component {
     if (startIndexUpdated || itemsChanged) {
       // TODO: this should be fix/removed if all it is doing
       // is resetting the gallery currentIndext state
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ currentIndex: startIndex });
     }
   }
@@ -468,7 +470,6 @@ export default class ImageGallery extends React.Component {
       this.direction = 'right';
     }
 
-
     // when swiping between two slides make sure the next and prev slides
     // are on both left and right
     if (secondSlideIsNextSlide && currentSlideOffset > 0) { // swiping right
@@ -544,13 +545,14 @@ export default class ImageGallery extends React.Component {
       translate = `translate3d(${translateX}%, 0, 0)`;
     }
 
-    return Object.assign({}, {
+    return {
       WebkitTransform: translate,
       MozTransform: translate,
       msTransform: translate,
       OTransform: translate,
       transform: translate,
-    }, slideStyle);
+      ...slideStyle,
+    };
   }
 
   getCurrentIndex() {
@@ -626,6 +628,7 @@ export default class ImageGallery extends React.Component {
         <div
           aria-label={`Slide ${index + 1}`}
           aria-hidden={currentIndex !== index ? 'true' : 'false'}
+          // eslint-disable-next-line react/no-array-index-key
           key={`slide-${item.original}-${index}`}
           tabIndex="-1"
           className={`image-gallery-slide ${alignment} ${originalClass}`}
@@ -661,6 +664,7 @@ export default class ImageGallery extends React.Component {
         );
         thumbnails.push(
           <button
+            // eslint-disable-next-line react/no-array-index-key
             key={`thumbnail-${item.original}-${index}`}
             type="button"
             tabIndex="0"
@@ -668,10 +672,10 @@ export default class ImageGallery extends React.Component {
             aria-label={`Go to Slide ${index + 1}`}
             className={igThumbnailClass}
             onMouseLeave={slideOnThumbnailOver ? this.onThumbnailMouseLeave : null}
-            onMouseOver={event => this.handleThumbnailMouseOver(event, index)}
-            onFocus={event => this.handleThumbnailMouseOver(event, index)}
-            onKeyUp={event => this.handleThumbnailKeyUp(event, index)}
-            onClick={event => this.onThumbnailClick(event, index)}
+            onMouseOver={(event) => this.handleThumbnailMouseOver(event, index)}
+            onFocus={(event) => this.handleThumbnailMouseOver(event, index)}
+            onKeyUp={(event) => this.handleThumbnailKeyUp(event, index)}
+            onClick={(event) => this.onThumbnailClick(event, index)}
           >
             {handleRenderThumbInner(item)}
           </button>,
@@ -694,6 +698,7 @@ export default class ImageGallery extends React.Component {
         bullets.push(
           <button
             type="button"
+            // eslint-disable-next-line react/no-array-index-key
             key={`bullet-${item.original}-${index}`}
             className={igBulletClass}
             onClick={bulletOnClick}
@@ -826,7 +831,7 @@ export default class ImageGallery extends React.Component {
     if (!isTransitioning && !scrollingUpDown) {
       const side = dir === RIGHT ? 1 : -1;
 
-      let currentSlideOffset = (absX / galleryWidth * 100);
+      let currentSlideOffset = ((absX / galleryWidth) * 100);
       if (Math.abs(currentSlideOffset) >= 100) {
         currentSlideOffset = 100;
       }
@@ -999,7 +1004,6 @@ export default class ImageGallery extends React.Component {
       this.play();
     }
   }
-
 
   handleScreenChange() {
     /*
@@ -1272,12 +1276,13 @@ export default class ImageGallery extends React.Component {
         {
           item.imageSet ? (
             <picture
-              onLoad={event => this.handleImageLoaded(event, item)}
+              onLoad={(event) => this.handleImageLoaded(event, item)}
               onError={handleImageError}
             >
               {
                 item.imageSet.map((source, index) => (
                   <source
+                    // eslint-disable-next-line react/no-array-index-key
                     key={`media-${source.srcSet}-${index}`}
                     media={source.media}
                     srcSet={source.srcSet}
@@ -1299,7 +1304,7 @@ export default class ImageGallery extends React.Component {
               srcSet={item.srcSet}
               sizes={item.sizes}
               title={item.originalTitle}
-              onLoad={event => this.handleImageLoaded(event, item)}
+              onLoad={(event) => this.handleImageLoaded(event, item)}
               onError={handleImageError}
             />
           )
@@ -1380,13 +1385,13 @@ export default class ImageGallery extends React.Component {
         {renderCustomControls && renderCustomControls()}
         {
           this.canSlide() ? (
-            <React.Fragment>
+            <>
               {
                 showNav && (
-                  <React.Fragment>
+                  <>
                     {renderLeftNav(this.slideLeft, !this.canSlideLeft())}
                     {renderRightNav(this.slideRight, !this.canSlideRight())}
-                  </React.Fragment>
+                  </>
                 )
               }
               <Swipeable
@@ -1399,7 +1404,7 @@ export default class ImageGallery extends React.Component {
                   {slides}
                 </div>
               </Swipeable>
-            </React.Fragment>
+            </>
           ) : (
             <div className="image-gallery-slides">
               {slides}
