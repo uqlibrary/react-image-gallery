@@ -1265,20 +1265,21 @@ export default class ImageGallery extends React.Component {
     }
   }
 
-  renderItem(item, index) {
-    console.log(item, index);
+  renderItem(item, imgIndex) {
+    console.log(item);
     const { isFullscreen } = this.state;
     const { onImageError } = this.props;
     const handleImageError = onImageError || this.handleImageError;
     const itemSrc = isFullscreen ? (item.fullscreen || item.original) : item.original;
 
     return (
-      <div className="spotlights-gallery" data-testid="spotlights-gallery" data-index={index}>
+      <div className="spotlights-gallery" data-testid="spotlights-gallery">
         {
           item.imageSet ? (
             <picture
               onLoad={(event) => this.handleImageLoaded(event, item)}
               onError={handleImageError}
+              data-index={imgIndex}
             >
               {
                 item.imageSet.map((source, index) => (
@@ -1288,12 +1289,15 @@ export default class ImageGallery extends React.Component {
                     media={source.media}
                     srcSet={source.srcSet}
                     type={source.type}
+                    data-index={imgIndex}
                   />
                 ))
               }
               <img
                 aria-hidden="true"
+                data-index={imgIndex}
                 className="image-gallery-image"
+                data-index={imgIndex}
                 alt={item.originalAlt}
                 src={itemSrc}
               />
@@ -1301,6 +1305,7 @@ export default class ImageGallery extends React.Component {
           ) : (
             <img
               aria-hidden="true"
+              data-index={imgIndex}
               className="image-gallery-image"
               src={itemSrc}
               alt={item.originalAlt}
