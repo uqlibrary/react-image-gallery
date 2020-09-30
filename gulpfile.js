@@ -45,7 +45,7 @@ gulp.task('scripts', async () => {
     debug: true,
   }).transform('babelify', babelOptions))
     .bundle()
-    .on('error', err => console.error('error is', err))
+    .on('error', (err) => console.error('error is', err))
     .pipe(source('example.js'))
     .pipe(buffer())
     .pipe(gulp.dest('./example/'))
