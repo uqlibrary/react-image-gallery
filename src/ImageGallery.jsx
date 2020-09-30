@@ -626,7 +626,7 @@ export default class ImageGallery extends React.Component {
 
       const slide = (
         <div
-          // aria-label={`Slide ${index + 1}`}
+          aria-label={this.getCurrentIndex() !== index ? null : `Showing image slide ${index + 1}`}
           aria-hidden={currentIndex !== index ? 'true' : 'false'}
           // eslint-disable-next-line react/no-array-index-key
           key={`slide-${item.original}-${index}`}
@@ -1266,7 +1266,7 @@ export default class ImageGallery extends React.Component {
   }
 
   renderItem(item, imgIndex) {
-    console.log(item);
+    console.log(item, imgIndex);
     const { isFullscreen } = this.state;
     const { onImageError } = this.props;
     const handleImageError = onImageError || this.handleImageError;
