@@ -1297,7 +1297,6 @@ export default class ImageGallery extends React.Component {
                 aria-hidden="true"
                 data-index={imgIndex}
                 className="image-gallery-image"
-                data-index={imgIndex}
                 alt={item.originalAlt}
                 src={itemSrc}
               />
