@@ -1266,6 +1266,7 @@ export default class ImageGallery extends React.Component {
   }
 
   renderItem(item, imgIndex) {
+    console.log(item, imgIndex);
     const { isFullscreen } = this.state;
     const { onImageError } = this.props;
     const handleImageError = onImageError || this.handleImageError;
@@ -1275,8 +1276,6 @@ export default class ImageGallery extends React.Component {
       <div
         className="spotlights-gallery"
         data-testid="spotlights-gallery"
-        aria-label="Library news and events slideshow"
-        aria-live="polite"
       >
         {
           item.imageSet ? (
