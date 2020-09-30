@@ -626,7 +626,7 @@ export default class ImageGallery extends React.Component {
 
       const slide = (
         <div
-          aria-label={this.getCurrentIndex() !== index ? null : `Showing image slide ${index + 1}`}
+          aria-label={this.getCurrentIndex() !== index ? null : `Showing image slide ${index + 1}.`}
           aria-hidden={currentIndex !== index ? 'true' : 'false'}
           // eslint-disable-next-line react/no-array-index-key
           key={`slide-${item.original}-${index}`}
