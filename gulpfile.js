@@ -13,8 +13,12 @@ const buffer = require('vinyl-buffer');
 const watchify = require('watchify');
 
 const babelOptions = {
-  plugins: ['transform-object-assign'],
-  presets: ['es2015', 'react', 'stage-0'],
+  plugins: [
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    ['@babel/plugin-transform-react-jsx'],
+  ],
+  presets: ['@babel/preset-env'],
 };
 
 gulp.task('server', () => {
@@ -26,12 +30,13 @@ gulp.task('server', () => {
   });
 });
 
-gulp.task('sass', () => {
+gulp.task('sass', async () => {
   gulp.src('./styles/scss/image-gallery.scss')
     .pipe(sass())
     .pipe(rename('image-gallery.css'))
     .pipe(gulp.dest('./styles/css/'))
     .pipe(livereload());
+  // .pipe(print(() => { return 'HTTP Server Started'; }));
 });
 
 gulp.task('scripts', () => {
@@ -41,7 +46,7 @@ gulp.task('scripts', () => {
     debug: true,
   }).transform('babelify', babelOptions))
     .bundle()
-    .on('error', (err) => console.error('error is', err))
+    .on('error', err => console.error('error is', err))
     .pipe(source('example.js'))
     .pipe(buffer())
     .pipe(gulp.dest('./example/'))
@@ -81,12 +86,12 @@ gulp.task('svg-js', () => (
     .pipe(gulp.dest('./build'))
 ));
 
-gulp.task('watch', () => {
+gulp.task('watch', gulp.series(() => {
   livereload.listen();
   gulp.watch(['styles/**/*.scss'], ['sass']);
   gulp.watch(['src/*.jsx', 'src/icons/*.jsx', 'example/app.js'], ['scripts']);
-});
+}));
 
-gulp.task('dev', ['watch', 'scripts', 'sass', 'server']);
-gulp.task('build', ['source-js', 'svg-js', 'sass']);
-gulp.task('demo', ['demo-src']);
+gulp.task('dev', gulp.series(['watch', 'scripts', 'sass', 'server']));
+gulp.task('build', gulp.series(['source-js', 'svg-js', 'sass']));
+gulp.task('demo', gulp.series(['demo-src']));
