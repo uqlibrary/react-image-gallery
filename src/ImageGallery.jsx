@@ -1274,6 +1274,7 @@ export default class ImageGallery extends React.Component {
 
     return (
       <div className="spotlights-gallery" data-testid="spotlights-gallery">
+        {console.log(item)}
         {
           item.imageSet ? (
             <picture
